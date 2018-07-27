@@ -30,7 +30,7 @@ public class TestRedis {
 
     @Test
     public void testObj() throws Exception{
-        User user=new User(5,"Kitty","121");
+        User user=new User("Kitty","121");
         ValueOperations<String,User> operations=redisTemplate.opsForValue();
         operations.set("com.user",user);
         operations.set("com.use.x",user,10*60,TimeUnit.SECONDS); //设置key的值，并设定缓存时间10*60s

@@ -12,7 +12,7 @@ public class User implements Serializable {
     private static final long serialVersionUID = 2952746266349588937L;
     @Id
     @GeneratedValue
-    private Integer id;
+    private Integer id;  //id在保存时会自动生成和传入的值无关
 
     @Column(nullable = true)
     private String userName;
@@ -46,8 +46,7 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(Integer id, String userName, String password) {
-        this.id = id;
+    public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
     }
