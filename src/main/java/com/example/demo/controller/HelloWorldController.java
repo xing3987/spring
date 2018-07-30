@@ -31,7 +31,7 @@ public class HelloWorldController {
     @RequestMapping("/getUser")
     public User getUser(){
         User user=new User();
-        user.setId(2);
+        user.setId(2l);
         user.setUserName("大头");
         user.setPassword("admin");
         return user;
