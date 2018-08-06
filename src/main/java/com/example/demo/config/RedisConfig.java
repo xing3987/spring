@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.config;
 
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;

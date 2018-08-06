@@ -25,7 +25,7 @@ public class HelloWorldController {
 
     @RequestMapping("/hello")
     public String index() {
-        return "<h1>Hello World,啦啦啦</h1>";
+        return "<h1>Hello World</h1>";
     }
 
     @RequestMapping("/getUser")
