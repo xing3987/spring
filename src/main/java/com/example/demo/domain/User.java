@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Entity  //if use this annotation,you must confirm this table is in database
+@Entity  //if use this annotation,you must confirm this table is in database or use @table(name="otherTable")
 public class User implements Serializable {
     private static final long serialVersionUID = 2952746266349588937L;
     /*
