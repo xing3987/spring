@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.annotation.Agent;
 import com.example.demo.annotation.AnnotationHelper;
+import com.example.demo.annotation.UseAgentDemo;
 import com.example.demo.domain.User;
 import com.example.demo.domain.UserRespository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,7 @@ public class HelloWorldController {
     @Autowired
     private UserRespository userRespository;
 
+    @Agent
     @RequestMapping("/hello")
     public String index() {
         //AnnotationHelper.getStaticAgent("useAgentDemo","get1");
