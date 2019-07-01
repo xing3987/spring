@@ -8,6 +8,7 @@ import com.example.demo.domain.UserRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,6 +20,8 @@ public class HelloWorldController {
 
     @Value("${com.title}")
     private String title;//use application.properties
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Value("${com.description}")
     private String description;
@@ -49,10 +52,16 @@ public class HelloWorldController {
         return user;
     }
 
+    /**
+     * 使用redis缓存注解，把结果存入缓存中，value的值就是缓存在redis中的key组合名
+     * 当redis中有值时，会直接从redis中取值，不会执行以下的方法
+     * @return
+     */
     @RequestMapping("/getUserByName")
-    @Cacheable(value = "user-key")  //使用redis缓存注解，把结果存入缓存中，value的值就是缓存在redis中的key
+    @Cacheable(value = "user-key")
     public User getUserByName() {
         User user = userRespository.findByUserName("Tom");
+        //redisTemplate.opsForValue().set("user-key",user);
         System.out.println("若下面没出现<<无缓存的时候调用>>字样且能打印出数据表示测试成功");
         return user;
     }

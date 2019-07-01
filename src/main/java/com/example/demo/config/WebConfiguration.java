@@ -35,15 +35,15 @@ public class WebConfiguration {
             HttpServletRequest request=(HttpServletRequest)servletRequest;
             HttpServletResponse response=(HttpServletResponse)servletResponse;
             System.out.println("this is my Filter:"+request.getRequestURI());
-            //if(request.getRequestURI().equals("/hello")) {
-            //   // response.sendRedirect(request.getContextPath() + "/getUser");
-            //    response.sendRedirect("http://www.baidu.com");
-            //}
+            /*if(request.getRequestURI().equals("/web")) {
+               // response.sendRedirect(request.getContextPath() + "/getUser");
+                response.sendRedirect("http://www.baidu.com");
+            }*/
             //use to session check
-            //String user=(String)request.getSession().getAttribute("user");
-            //if (null==user){
-            //    response.sendRedirect(request.getContextPath() + "/hello");
-            //}
+            /*String user=(String)request.getSession().getAttribute("user");
+            if (null==user){
+                response.sendRedirect(request.getContextPath() + "/hello");
+            }*/
             //encoding filter
             request.setCharacterEncoding("utf-8");
             response.setContentType("text/html;charset=utf-8");

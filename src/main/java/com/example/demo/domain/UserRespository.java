@@ -9,10 +9,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface UserRespository extends JpaRepository<User,Long> {
+public interface UserRespository extends JpaRepository<User, Long> {
     User findByUserName(String userName);
+
     User findById(Long id);
+
     List<User> findAll();
+
+    //分页查询会获得Page对象，通过遍历获取里面的值,或使用page.getContent()获取list<T>对象
+    //Page从第0页开始
     Page<User> findByUserName(String userName, Pageable pageable);
 
     /*
@@ -22,63 +27,23 @@ public interface UserRespository extends JpaRepository<User,Long> {
     */
     @Modifying
     @Query("update User u set u.userName=?1 where u.id=?2")
-    int modifyByIdAndUserName(String userName,Long id);
+    int modifyByIdAndUserName(String userName, Long id);
 
     @Transactional
     @Modifying
     @Query("delete from User where id=?1")
     void deleteByUserId(Long id);
 
-    @Transactional(timeout=10)
+    @Transactional(timeout = 10)
     @Query("select u from User u where u.id>?1 and u.id<?2")
-    List<User> findByIdRange(Long idstart,Long idend);
+    List<User> findByIdRange(Long idstart, Long idend);
 
-    /*
-    多表查询：
-    多表查询在spring data jpa中有两种实现方式，第一种是利用hibernate的级联查询来实现，第二种是创建一个结果集的接口来接收连表查询后的结果，这里主要第二种方式
-    创建结果集接口：
-    public interface HotelSummary {
+    //多表联查。方法一:sql查询的是实体类型，而不是数据库表
+    @Query(value = "SELECT new com.example.demo.domain.UserDetail(u, c) FROM com.example.demo.domain.User u, com.example.demo.domain.Customer c WHERE u.userName = c.name")
+    Page<UserDetail> findAllName(Pageable pageable);
 
-        City getCity();
+    //多表联查。方法一:sql查询的是实体类型，而不是数据库表
+    @Query(value = "SELECT new com.example.demo.domain.UserDetail(u, c) FROM com.example.demo.domain.User u, com.example.demo.domain.Customer c WHERE u.userName = c.name and c.name=?1")
+    UserDetail findByName(String name);
 
-        String getName();
-
-        Double getAverageRating();
-
-        default Integer getAverageRatingRounded() {
-            return getAverageRating() == null ? null : (int) Math.round(getAverageRating());
-        }
-
-    }
-    定义：
-    @Query("select h.name as name, avg(r.rating) as averageRating "
-            - "from Hotel h left outer join h.reviews r  group by h")
-    Page<HotelSummary> findByCity(Pageable pageable);
-    使用：
-    Page<HotelSummary> hotels = this.hotelRepository.findByCity(new PageRequest(0, 10, Direction.ASC, "name"));
-    for(HotelSummary summay:hotels){
-            System.out.println("Name" +summay.getName());
-        }
-
-
-    多数据源：
-    实体类声明@Entity 关系型数据库支持类型、声明@Document 为mongodb支持类型，不同的数据源
-     interface PersonRepository extends Repository<Person, Long> {
-     …
-    }
-
-    @Entity
-    public class Person {
-      …
-    }
-
-    interface UserRepository extends Repository<User, Long> {
-     …
-    }
-
-    @Document
-    public class User {
-      …
-    }
-     */
 }

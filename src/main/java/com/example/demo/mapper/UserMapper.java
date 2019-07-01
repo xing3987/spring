@@ -1,5 +1,6 @@
-package com.example.demo.domain;
+package com.example.demo.mapper;
 
+import com.example.demo.domain.User;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 

@@ -1,8 +1,9 @@
 /*
 <!--使用配置文件的方式使用整合mabatis时使用-->
  */
-package com.example.demo.domain;
+package com.example.demo.mapper;
 
+import com.example.demo.domain.User;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
